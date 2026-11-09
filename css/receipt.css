@@ -1,0 +1,115 @@
+/* css/receipt.css — payment receipt (on screen and in the print window) */
+.rcp-top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.rcp-top-actions .btn{display:inline-flex;align-items:center;gap:6px}
+.rcp-ico{flex:none;vertical-align:middle}
+.rcp-layout{display:grid;grid-template-columns:minmax(0,1fr) 232px;gap:16px;align-items:start}
+.rcp-scroll{overflow-x:auto}
+.rcp-aside{display:flex;flex-direction:column;gap:14px;position:sticky;top:12px}
+.rcp-panel{padding:14px}
+.rcp-panel h4{margin:0 0 10px;font-size:12.5px;letter-spacing:.04em;color:#12348a}
+.rcp-act{display:flex;align-items:center;gap:10px;width:100%;padding:11px 14px;margin-bottom:9px;border:1px solid transparent;border-radius:6px;font-size:13.5px;font-weight:600;color:#fff;text-align:left}
+.rcp-act:last-child{margin-bottom:0}
+.rcp-act:disabled{opacity:.45;cursor:not-allowed}
+.rcp-act.green{background:#1f8a32}.rcp-act.blue{background:#1556c7}.rcp-act.purple{background:#6b36c9}.rcp-act.red{background:#d92b2b}
+.rcp-act.outline{background:#fff;color:#1c2430;border-color:#c9d0da}
+.rcp-act:not(:disabled):hover{filter:brightness(.93)}
+.rcp-qi{display:flex;flex-direction:column;gap:3px;padding:9px 0;border-top:1px solid var(--line);font-size:12.5px}
+.rcp-qi:first-of-type{border-top:0}
+.rcp-qi span{color:var(--muted)}.rcp-qi b{font-size:13.5px}
+.rcp-qi b.green,.rcp-top b.green{color:#1b7a34}.rcp-qi b.red{color:#d92b2b}
+.rcp-pill{display:inline-block;padding:3px 12px;border-radius:5px;font-size:12px;font-weight:700;font-style:normal}
+.rcp-pill.ok{background:#dff3e2;color:#17692a}.rcp-pill.warn{background:#fff0d1;color:#8a5a00}.rcp-pill.bad{background:#fde1e1;color:#b42020}
+.rcp-hist{margin-top:16px}.rcp-hist h3{margin:0 0 10px;font-size:13px;letter-spacing:.04em;color:#12348a}
+tr.rcp-cur td{background:rgba(31,138,50,.07)}
+
+/* ---- the paper ---- */
+.rcp-paper{position:relative;min-width:760px;background:#fff;color:#1c2430;border:1px solid #cfd6df;border-radius:6px;padding:24px 26px 14px;font-size:12px;line-height:1.35;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+.rcp-paper *{box-sizing:border-box}
+.rcp-wm{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%) rotate(-24deg);font-size:92px;font-weight:900;letter-spacing:.08em;color:rgba(30,60,140,.09);pointer-events:none;white-space:nowrap}
+.rcp-wm.bad{color:rgba(217,43,43,.13)}
+.rcp-head{display:flex;justify-content:space-between;gap:20px;padding-bottom:14px;border-bottom:1px solid #d9dee6}
+.rcp-school{display:flex;gap:14px;align-items:flex-start;flex:1;min-width:0}
+.rcp-logo{width:92px;height:92px;object-fit:contain;flex:none}
+.rcp-logo.ph{display:flex;align-items:center;justify-content:center;font-size:46px;background:#eef2f8;border-radius:12px}
+.rcp-school-txt h1{margin:4px 0 2px;font-size:21px;line-height:1.15;letter-spacing:.01em;color:#12296b;text-transform:uppercase}
+.rcp-motto{font-style:italic;color:#4b5a73;margin-bottom:6px;font-size:11.5px}
+.rcp-contact{display:flex;align-items:center;gap:7px;margin-top:5px;color:#2c3a52;font-size:11.5px}
+.rcp-contact .rcp-ico{color:#12296b}
+.rcp-title-col{width:330px;flex:none}
+.rcp-title{text-align:right;font-size:22px;font-weight:800;color:#1b7a34;letter-spacing:.01em;margin-bottom:8px}
+.rcp-meta{display:flex;gap:10px;border:1px solid #d3d9e2;border-radius:6px;padding:10px 12px}
+.rcp-meta-l{flex:1}
+.rcp-meta-l label{display:block;margin:7px 0 1px;font-size:11px;color:#4b5a73;font-weight:400}
+.rcp-meta-l label:first-child{margin-top:0}
+.rcp-meta-l b{display:block;font-size:12px}
+.rcp-meta-l b.rcp-no{color:#d11d1d;font-size:14px}
+.rcp-meta-r{width:100px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.rcp-meta-r svg{display:block}
+.rcp-bar svg{width:100px;height:28px}
+.rcp-meta-r small{font-size:9.5px;color:#2c3a52;letter-spacing:.02em}
+.rcp-h{margin:14px 0 8px;font-size:12px;letter-spacing:.03em;color:#12348a;font-weight:800}
+.rcp-cols{display:grid;grid-template-columns:1.4fr 1fr;gap:0;border-bottom:1px solid #d9dee6;padding-bottom:12px}
+.rcp-cols>div:first-child{padding-right:16px;border-right:1px solid #d9dee6}
+.rcp-cols>div:last-child{padding-left:16px}
+.rcp-cols .rcp-h{margin-top:4px}
+.rcp-stu{display:grid;grid-template-columns:92px 1.2fr 1fr;gap:12px;align-items:start}
+.rcp-photo{width:92px;height:108px;border-radius:6px;overflow:hidden;background:#e7ecf4;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:#12296b}
+.rcp-photo img{width:100%;height:100%;object-fit:cover}
+.rcp-kv{display:grid;grid-template-columns:minmax(60px,.8fr) 1.2fr;gap:6px;padding:5px 0;align-items:center}
+.rcp-kv span{color:#4b5a73;font-size:11px}
+.rcp-kv b{font-weight:600;font-size:11.5px;word-break:break-word}
+.rcp-pay .rcp-kv{grid-template-columns:1fr 1.1fr;padding:6px 0}
+.rcp-chip{background:#dff3e2;color:#17692a;border-radius:4px;padding:3px 10px;font-style:normal;font-weight:600;font-size:11px}
+.rcp-cols2{display:grid;grid-template-columns:1fr 188px;gap:14px;align-items:start}
+.rcp-tbl{width:100%;border-collapse:collapse;font-size:11px;border:1px solid #d3d9e2}
+.rcp-tbl th{background:#f1f4f9;color:#1c2430;font-weight:700;padding:7px 6px;border:1px solid #d3d9e2;text-align:right;font-size:10.5px}
+.rcp-tbl td{padding:7px 6px;border:1px solid #e0e5ec;text-align:right}
+.rcp-tbl th.l,.rcp-tbl td.l{text-align:left}
+.rcp-tbl th:first-child,.rcp-tbl td:first-child{text-align:center;width:26px}
+.rcp-tbl td.red,.rcp-sum b.red{color:#d11d1d;font-weight:700}
+.rcp-side{display:flex;flex-direction:column;gap:10px}
+.rcp-box{border:1px solid #d3d9e2;border-radius:6px;padding:10px 12px}
+.rcp-box h4{margin:0 0 8px;font-size:11.5px;color:#12348a;letter-spacing:.03em}
+.rcp-box p{margin:0;font-size:10.5px;color:#4b5a73}
+.rcp-sum{display:flex;flex-direction:column;gap:1px;margin-bottom:8px;font-size:10.5px;color:#4b5a73}
+.rcp-sum:last-child{margin-bottom:0}
+.rcp-sum b{align-self:flex-end;font-size:12px;color:#1c2430}
+.rcp-totals{display:grid;grid-template-columns:1.25fr 1fr .8fr .8fr 1.1fr;gap:10px;margin-top:12px;align-items:stretch}
+.rcp-totals>div{border:1px solid #d3d9e2;border-radius:6px;padding:9px 10px;text-align:center}
+.rcp-tot small,.rcp-status small{display:block;font-size:10.5px;color:#4b5a73;margin-bottom:4px}
+.rcp-tot b{font-size:16px}.rcp-tot.paid b{color:#1b7a34}
+.rcp-status{text-align:left!important}
+.rcp-status div{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:800}
+.rcp-status i{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;color:#fff;font-style:normal;font-size:15px}
+.rcp-status.ok{border:2px solid #1f8a32!important;color:#1b7a34}.rcp-status.ok i{background:#1f8a32}
+.rcp-status.warn{border:2px solid #d98a00!important;color:#a86800}.rcp-status.warn i{background:#d98a00}
+.rcp-status.bad{border:2px solid #d92b2b!important;color:#b42020}.rcp-status.bad i{background:#d92b2b}
+.rcp-sign{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-top:20px;padding-top:14px;border-top:1px dashed #b9c1ce}
+.rcp-stamp{flex:none}
+.rcp-sig{flex:1;text-align:center}
+.rcp-sig-name{min-height:30px;font:italic 20px/30px "Segoe Script","Brush Script MT","Lucida Handwriting",cursive;color:#1a2a55;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rcp-sig-line{border-top:1px solid #8793a6;padding-top:5px;font-size:11px;color:#2c3a52}
+.rcp-foot{display:flex;justify-content:space-between;gap:10px;margin-top:14px;font-size:9.5px;color:#4b5a73}
+
+@media (max-width:1100px){.rcp-layout{grid-template-columns:1fr}.rcp-aside{position:static;display:grid;grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.rcp-aside{grid-template-columns:1fr}}
+
+/* ---- print window ---- */
+body.rcp-print{margin:0;padding:18px;background:#fff;font-family:Arial,Helvetica,sans-serif}
+body.rcp-print .rcp-paper{max-width:900px;margin:0 auto}
+.rcp-toolbar{position:sticky;top:0;background:#f4f6f5;padding:10px 0;margin:-18px -18px 16px;text-align:center;border-bottom:1px solid #ddd;z-index:5}
+.rcp-toolbar button{font:600 13px Arial,sans-serif;padding:8px 18px;border-radius:8px;border:0;background:#1f8a32;color:#fff;cursor:pointer}
+@page{size:A4;margin:8mm}
+@media print{
+  .rcp-toolbar{display:none}
+  body.rcp-print{padding:0}
+  body.rcp-print .rcp-paper{max-width:none;border:0;border-radius:0;padding:0 3px;min-width:0;overflow:visible;page-break-inside:avoid;break-inside:avoid}
+  .rcp-logo{width:78px;height:78px}.rcp-head{padding-bottom:10px}
+  .rcp-kv{padding:3px 0}.rcp-pay .rcp-kv{padding:4px 0}.rcp-photo{height:96px}
+  .rcp-tbl td{padding:4.5px 6px}.rcp-tbl th{padding:5px 6px}
+  .rcp-h{margin:10px 0 6px}.rcp-sign{margin-top:14px;padding-top:10px}.rcp-foot{margin-top:10px}
+  .rcp-wm{overflow:visible}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+a.rcp-link{color:#1556c7;font-weight:600;text-decoration:none}a.rcp-link:hover{text-decoration:underline}

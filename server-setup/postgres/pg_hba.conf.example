@@ -1,0 +1,12 @@
+# pg_hba.conf — who may connect to PostgreSQL, and how.   (Windows: C:\Program Files\PostgreSQL\<ver>\data\pg_hba.conf)
+# The FIRST matching line wins, so keep the reject lines last. Back up the original file before editing,
+# then restart the "postgresql-x64-<ver>" service.
+#
+# TYPE  DATABASE            USER            ADDRESS         METHOD
+host    greenhill_academy   eramaster_app   127.0.0.1/32    scram-sha-256
+host    greenhill_academy   eramaster_app   ::1/128         scram-sha-256
+host    all                 postgres        127.0.0.1/32    scram-sha-256     # admin, from this computer only
+host    all                 postgres        ::1/128         scram-sha-256
+host    all                 all             0.0.0.0/0       reject
+host    all                 all             ::/0            reject
+# (On Linux, also add:  local  all  postgres  peer   and   local  greenhill_academy  eramaster_app  scram-sha-256)

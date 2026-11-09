@@ -1,0 +1,93 @@
+/* portal-themes.css — one colour scheme per portal / role family.
+   js/portal-theme.js puts ONE of these classes on <body>:
+     pt-admin    Navy Blue + White + Gold      (the main system: Principal, Deputy, Administrator, Accountant)
+     pt-student  Forest Green + White          (Student portal)
+     pt-parent   Royal Blue + White + Light Grey (Parent portal)
+     pt-staff    Burgundy + White + Cream      (Staff portal: teachers, and the staff sign-in page)
+   Each scheme only re-sets the variables index.html already uses, plus the
+   hard-coded teal on the sign-in screen. Dark mode keeps its own surfaces. */
+
+/* ================= shared wiring ================= */
+body[class*="pt-"] { --accent: var(--g-700); }
+
+/* ================= 1. NAVY + WHITE + GOLD (main system) ================= */
+body.pt-admin{
+  --g-700:#1b365d; --g-900:#0f2342; --g-950:#0a1830;
+  --side-bg:#0f2342; --side-accent:linear-gradient(135deg,#e2b83f,#b98a1a); --side-accent-2:#e6c15a;
+  --side-label:#8fa3c4; --side-chev:#5b7199; --side-text:#bfcbe0;
+  --gold:#d4a72c; --pt-gold:#d4a72c;
+  --student:#1b365d; --student-dark:#0f2342; --parent:#1b365d; --parent-dark:#0f2342; --staff-dark:#0f2342;
+  --au-dark:#0f2342; --au-teal:#1b365d; --au-cyan:#d4a72c; --au-deep:#162d52;
+  --pt-grad-a:#0a1830; --pt-grad-b:#1b365d; --pt-grad-c:#d4a72c;
+  --pt-auth-bg:linear-gradient(90deg,#c9d3e6 0%,#e8edf6 55%,#dfe6f2 100%);
+}
+body.pt-admin:not(.dark){
+  --g-100:#e4eaf5; --g-50:#f3f6fb; --bg:#f5f6f9; --line:#e2e6ee;
+}
+body.pt-admin .nav-item.active{background:var(--side-accent);color:#0f2342;box-shadow:0 6px 16px -4px rgba(212,167,44,.5)}
+body.pt-admin .brand{border-bottom-color:rgba(212,167,44,.35)}
+body.pt-admin #topbar{border-bottom:2px solid #d4a72c}
+body.pt-admin .portal-banner{background:linear-gradient(135deg,#1b365d,#0f2342);border-bottom:3px solid #d4a72c}
+body.pt-admin .btn.primary{box-shadow:inset 0 -2px 0 #d4a72c}
+
+/* ================= 2. FOREST GREEN + WHITE (students) ================= */
+body.pt-student{
+  --g-700:#1e5a32; --g-900:#123d21; --g-950:#0b2815;
+  --side-bg:#0f2f1a; --side-accent:linear-gradient(135deg,#2f8a4e,#1e5a32); --side-accent-2:#7fd69a;
+  --side-label:#82ad90; --side-chev:#4f7d5f; --side-text:#b9d3c1;
+  --student:#1e5a32; --student-dark:#123d21;
+  --au-dark:#0b2815; --au-teal:#1e5a32; --au-cyan:#5fbf7f; --au-deep:#123d21;
+  --pt-grad-a:#0b2815; --pt-grad-b:#1e5a32; --pt-grad-c:#5fbf7f;
+  --pt-auth-bg:linear-gradient(90deg,#b9d9c3 0%,#e0f1e5 55%,#cfe8d7 100%);
+}
+body.pt-student:not(.dark){
+  --g-100:#dff0e4; --g-50:#f1f8f3; --bg:#f5f9f6; --line:#e1eae3;
+}
+
+/* ================= 3. ROYAL BLUE + WHITE + LIGHT GREY (parents) ================= */
+body.pt-parent{
+  --g-700:#2a56c6; --g-900:#1b3f95; --g-950:#12296a;
+  --side-bg:#13286b; --side-accent:linear-gradient(135deg,#4a76e3,#2a56c6); --side-accent-2:#a9c0f5;
+  --side-label:#8c9fd1; --side-chev:#5a6fb0; --side-text:#c3cdea;
+  --parent:#2a56c6; --parent-dark:#1b3f95;
+  --au-dark:#12296a; --au-teal:#2a56c6; --au-cyan:#6c93ee; --au-deep:#1b3f95;
+  --pt-grad-a:#12296a; --pt-grad-b:#2a56c6; --pt-grad-c:#7da0f2;
+  --pt-auth-bg:linear-gradient(90deg,#d5d9e1 0%,#eceef2 55%,#e1e4ea 100%);
+}
+body.pt-parent:not(.dark){
+  --g-100:#e3eafb; --g-50:#f1f4fc; --bg:#f1f2f4; --line:#dfe2e8;
+}
+
+/* ================= 4. BURGUNDY + WHITE + CREAM (staff) ================= */
+body.pt-staff{
+  --g-700:#7a1c2e; --g-900:#571320; --g-950:#3e0d17;
+  --side-bg:#4a1020; --side-accent:linear-gradient(135deg,#a3324a,#7a1c2e); --side-accent-2:#f0c9a0;
+  --side-label:#c79a9f; --side-chev:#93626a; --side-text:#e5cfc9;
+  --staff-dark:#571320;
+  --au-dark:#3e0d17; --au-teal:#7a1c2e; --au-cyan:#d98a96; --au-deep:#571320;
+  --pt-grad-a:#3e0d17; --pt-grad-b:#7a1c2e; --pt-grad-c:#d98a96;
+  --pt-auth-bg:linear-gradient(90deg,#ead9c2 0%,#f8f0e2 55%,#f1e5d1 100%);
+}
+body.pt-staff:not(.dark){
+  --g-100:#f5e4e1; --g-50:#fbf5ee; --bg:#faf5ea; --line:#eadfcf;
+}
+
+/* ================= sign-in screen (hard-coded teal in index.html) ================= */
+body[class*="pt-"] .auth-wrap{ background:var(--pt-auth-bg); }
+body[class*="pt-"] .auth-brand .back-link{ color:var(--au-teal); }
+body[class*="pt-"] .auth-brand h1{ color:var(--au-teal); }
+body[class*="pt-"] .auth-brand .muted{ color:var(--au-dark); }
+body[class*="pt-"] .auth-card .btn-grad{
+  background:linear-gradient(100deg,var(--pt-grad-a) 0%,var(--pt-grad-b) 45%,var(--pt-grad-c) 100%);
+  box-shadow:0 8px 18px -10px var(--pt-grad-a);
+}
+body[class*="pt-"] .auth-card .toggle-box::before{
+  background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(0,0,0,.1)),linear-gradient(100deg,var(--pt-grad-a) 0%,var(--pt-grad-b) 16.6%,var(--pt-grad-c) 100%);
+}
+body[class*="pt-"] .auth-card button:focus-visible,
+body[class*="pt-"] .auth-card a:focus-visible{ outline-color:var(--pt-grad-c); }
+@media (max-width:650px){
+  body[class*="pt-"] .auth-card .toggle-box::before{
+    background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(0,0,0,.1)),linear-gradient(180deg,var(--pt-grad-a) 0%,var(--pt-grad-b) 16.6%,var(--pt-grad-c) 100%);
+  }
+}

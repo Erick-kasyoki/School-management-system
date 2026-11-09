@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>School portal — EraMaster</title>
+<link rel="icon" href="favicon.php">
+<style>
+:root{
+  --g-900:#0d3322; --g-700:#175537; --g-100:#dcefe3; --g-50:#f0f7f3;
+  --ink:#1c2621; --muted:#657268; --line:#e3e8e4; --bg:#f4f6f5;
+  --blue-deep:#0a1f5c; --blue-mid:#1849c9; --blue-bright:#3573f2; --blue-light:#7fb0ff;
+
+  --student:#3a5bf0; --student-tint:#e6ebff;
+  --parent:#d9527a;  --parent-tint:#fbe7ee;
+  --teacher:#e07a1e; --teacher-tint:#fdead9;
+  --admin:#1f9d55;   --admin-tint:#e0f5e7;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,255,255,.16) 0%, transparent 40%),
+    radial-gradient(circle at 88% 92%, rgba(127,176,255,.35) 0%, transparent 45%),
+    linear-gradient(155deg, var(--blue-deep) 0%, var(--blue-mid) 45%, var(--blue-bright) 80%, var(--blue-light) 130%);
+  color:var(--ink);
+}
+.wrap{max-width:1000px;margin:0 auto;padding:34px 24px 70px}
+
+header.hero{padding:0 0 28px;text-align:center}
+header.hero .hero-logo{display:block;height:84px;max-width:220px;object-fit:contain;background:#fff;border-radius:18px;padding:8px;margin:0 auto 14px;box-shadow:0 10px 24px -12px rgba(6,20,60,.5)}
+header.hero .brand{font-size:13px;font-weight:700;letter-spacing:.04em;color:#bcd2ff;text-transform:uppercase;margin-bottom:6px}
+header.hero h1{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:clamp(34px,6.4vw,72px);line-height:1.08;margin:0 0 12px;color:#fff;letter-spacing:.01em;text-shadow:0 4px 26px rgba(4,12,44,.65);animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+header.hero .motto{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-style:italic;font-size:clamp(17px,2.4vw,22px);color:#ffe29a;margin:0 0 22px;text-shadow:0 2px 14px rgba(4,12,44,.6)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+@media (prefers-reduced-motion:reduce){header.hero h1{animation:none}}
+header.hero .hero-logo[hidden]{display:none}
+.back-link{display:block;text-align:left;margin:0 0 16px;color:#d5e0ff;font-size:13.5px;text-decoration:none;font-weight:600}
+header.hero p{margin:0;color:rgba(255,255,255,.78);font-size:14.5px}
+
+.group{margin-top:30px}
+.group-head{
+  display:flex;align-items:center;gap:9px;
+  padding-bottom:10px;margin-bottom:20px;
+  border-bottom:1px solid rgba(255,255,255,.22);
+}
+.group-head .gi{font-size:16px}
+.group-head h2{
+  margin:0;font-size:13px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:rgba(255,255,255,.8);
+}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+
+.card{
+  --c2:color-mix(in srgb, var(--c) 72%, #000);
+  background:linear-gradient(160deg, var(--c) 0%, var(--c2) 100%);
+  border:1px solid rgba(255,255,255,.35);border-radius:16px;
+  padding:34px 22px 26px;text-align:center;color:#fff;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  box-shadow:0 18px 38px -14px rgba(6,20,60,.5);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 24px 44px -14px rgba(6,20,60,.6)}
+.card.student{--c:#1e5a32}
+.card.parent{--c:#2a56c6}
+.card.teacher{--c:#7a1c2e}
+.card.admin{--c:#1b365d}
+.icon-badge{
+  width:64px;height:64px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.95);
+}
+.icon-badge svg{width:30px;height:30px;color:var(--c)}
+.card h3{margin:0;font-size:18px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.18)}
+
+.signin{
+  appearance:none;border:0;border-radius:9px;
+  padding:12px 20px;min-width:150px;
+  font-size:13.5px;font-weight:700;letter-spacing:.03em;color:#fff;
+  background:var(--c);
+  text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  cursor:pointer;
+}
+.signin:hover{filter:brightness(.94)}
+.signin svg{width:15px;height:15px}
+/* on a coloured card the button is white with the card's colour, so it stands out */
+.card .signin{background:#fff;color:var(--c2)}
+.card .signin:hover{filter:none;background:#f3f5ff}
+
+.store-row{display:flex;gap:10px;justify-content:center}
+.store-btn{
+  width:40px;height:40px;border-radius:10px;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;color:var(--muted);background:#fff;
+}
+.store-btn.disabled{opacity:.4}
+.tag-soon{
+  font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
+  color:var(--c);background:var(--tint);padding:4px 10px;border-radius:99px;
+}
+
+.providers{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:14px;
+  backdrop-filter:blur(6px);
+  padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.providers p{margin:0;font-size:13.5px;color:#fff;max-width:52ch;line-height:1.55}
+.providers a.signin{--c:#194bd6}
+
+footer{margin-top:46px;padding-top:18px;border-top:1px solid rgba(255,255,255,.22);font-size:12.5px;color:rgba(255,255,255,.72)}
+</style>
+<link rel="stylesheet" href="css/slideshow.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <a href="home.html" class="back-link">&larr; Back to school homepage</a>
+    <img id="schoolLogo" class="hero-logo" alt="School logo" hidden>
+    <div class="brand">EraMaster</div>
+    <h1 id="schoolName">Greenhill Academy</h1>
+    <p class="motto" id="schoolMotto"></p>
+    <p>CHOOSE WHERE YOU WOULD LIKE TO SIGN.</p>
+  </header>
+
+  <!-- The photo slideshow is a full-page background layer created by js/slideshow.js
+       (photos are managed in the admin dashboard: Settings → Homepage slideshow). -->
+
+  <section class="group">
+    <div class="group-head">
+      <span class="gi">📘</span><h2>Portals</h2>
+    </div>
+    <div class="cards">
+
+      <div class="card student">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 3 2 6 2s6-1 6-2v-5"/></svg>
+        </div>
+        <h3>Student's Portal</h3>
+        <a class="signin" href="index.html?portal=student">SIGN IN
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="card parent">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.6"/><path d="M2.5 20c0-3.3 2.9-6 6.5-6s6.5 2.7 6.5 6"/><path d="M15 14.2c2.9.3 5 2.4 5 5.3"/></svg>
+        </div>
+        <h3>Parent's Portal</h3>
+        <a class="signin" href="index.html?portal=parent">SIGN IN
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="group-head">
+      <span class="gi">👤</span><h2>Staff</h2>
+    </div>
+    <div class="cards">
+
+      <div class="card teacher">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M5 15c.5-1.8 2-3 4-3s3.5 1.2 4 3"/><path d="M15 9h5M15 12.5h5"/></svg>
+        </div>
+        <h3>Teacher's Portal</h3>
+        <a class="signin" href="index.html?portal=staff">SIGN IN
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="card admin">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </div>
+        <h3>Administrators</h3>
+        <a class="signin" href="index.html?portal=admin">SIGN IN
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="group-head">
+      <span class="gi">📇</span><h2>Service Providers</h2>
+    </div>
+    <div class="providers">
+      <p>Transport, catering or maintenance partner working with <span class="schoolNameText">Greenhill Academy</span>? Sign in to submit invoices and updates.</p>
+      <a class="signin" href="index.html?portal=provider">SIGN IN
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <footer>© <span id="yr">2026</span> <span class="schoolNameText">Greenhill Academy</span> — powered by EraMaster</footer>
+</div>
+<script src="js/slideshow.js"></script>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+// The school name and motto always come from School Settings, so changing them
+// there changes this page too.
+fetch('api/index.php?action=school_profile', { credentials: 'same-origin' })
+  .then(r => r.json())
+  .then(d => {
+    if (!d || !d.ok) return;
+    if (d.name) {
+      document.title = d.name + ' — EraMaster';
+      const h = document.getElementById('schoolName');
+      if (h) h.textContent = d.name;
+      document.querySelectorAll('.schoolNameText').forEach(el => { el.textContent = d.name; });
+    }
+    const m = document.getElementById('schoolMotto');
+    if (m && d.motto) m.textContent = d.motto;
+    // School logo uploaded by the administrator (Settings → School logo).
+    if (d.logo) {
+      const lg = document.getElementById('schoolLogo');
+      if (lg) { lg.src = d.logo; lg.hidden = false; }
+      let ic = document.querySelector('link[rel="icon"]');
+      if (!ic) { ic = document.createElement('link'); ic.rel = 'icon'; document.head.appendChild(ic); }
+      ic.href = d.logo;
+    }
+  })
+  .catch(() => {});
+</script>
+</body>
+</html>

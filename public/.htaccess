@@ -1,0 +1,9 @@
+# public/ - the address people type:  https://<your-ngrok-domain>/30/public/
+# Everything under /public/ is served from the project folder one level up, so the app keeps ONE copy of its files
+# and every relative link (api/index.php, js/, css/, img/, uploads/) keeps working. Needs mod_rewrite (XAMPP has it on).
+Options -Indexes
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_URI} ^(.*?)/public(/.*)?$
+  RewriteRule ^ %1%2 [PT,L]
+</IfModule>

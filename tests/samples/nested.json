@@ -1,0 +1,1 @@
+[{"id": 1, "name": "Alpha", "address": {"city": "Nairobi", "geo": {"lat": -1.29, "lng": 36.82}}, "tags": ["a", "b"], "active": true, "joined": "2025-03-04"}, {"id": 2, "name": "Beta", "address": {"city": "Kisumu"}, "tags": [], "active": false, "extra": "only-here"}]

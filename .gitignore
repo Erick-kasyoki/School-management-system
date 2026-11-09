@@ -1,0 +1,26 @@
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+**/config.local.php
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Uploaded/generated data
+/uploads/*
+!/uploads/.htaccess
+!/uploads/slideshow/
+/uploads/slideshow/*
+!/uploads/slideshow/.gitkeep
+/img/slideshow/*.jpg
+
+# Local logs, backups, and editor files
+*.log
+*.bak
+*.old
+*.swp
+*~
+.DS_Store
+Thumbs.db

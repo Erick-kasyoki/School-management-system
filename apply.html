@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply for admission</title>
+<link rel="icon" href="favicon.php">
+<link rel="stylesheet" href="css/admissions.css?v=20261006a">
+<style>
+body{margin:0;background:#f5f7fc;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#16213e}
+.bar{background:#fff;border-bottom:1px solid #e6eaf3;padding:12px 24px;display:flex;align-items:center;gap:12px;justify-content:space-between}
+.bar a{color:#2f4fd6;font-weight:700;text-decoration:none;font-size:13px;cursor:pointer}.bar b{font-size:16px}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+.box{background:#fff;border:1px solid #e6eaf3;border-radius:12px;padding:20px;margin-bottom:16px}
+.box h2{margin:0 0 14px;font-size:16px}.box h3{margin:18px 0 8px;font-size:13px;color:#2f4fd6}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+label{display:block;font-size:11.5px;color:#6b7691;margin-bottom:3px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #e6eaf3;border-radius:8px;font:inherit;font-size:13px;background:#fff}
+.go{background:#2f4fd6;color:#fff;border:0;border-radius:8px;padding:12px 22px;font-weight:700;cursor:pointer;font-size:13px}.go:disabled{opacity:.6}
+.msg{padding:12px 14px;border-radius:8px;font-size:13px;margin-top:12px}.err{background:#fde5e5;color:#b3261e}.okm{background:#e6f6ea;color:#1b7a3d}
+.tabs2{display:flex;gap:8px;margin-bottom:16px}.tabs2 button{border:1px solid #e6eaf3;background:#fff;border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer;color:#6b7691}.tabs2 button.on{background:#2f4fd6;color:#fff;border-color:#2f4fd6}
+.note{font-size:12px;color:#6b7691;margin:6px 0 0}
+</style></head><body>
+<div class="bar"><div style="display:flex;align-items:center;gap:10px"><img id="lg" alt="" hidden style="height:34px"><b id="sn">School admissions</b></div><a href="home.html">← Back to school website</a></div>
+<div class="wrap">
+ <div class="tabs2 no-print"><button id="tApply" class="on">Apply online</button><button id="tTrack">Track my application</button></div>
+ <div id="vApply">
+  <div class="box"><h2>Online application <span id="yr" style="color:#6b7691;font-weight:400"></span></h2>
+   <h3>Student</h3><div class="f">
+    <div><label>Full name *</label><input id="sName"></div><div><label>Date of birth *</label><input type="date" id="sDob"></div>
+    <div><label>Gender *</label><select id="sGender"><option value="">Choose…</option><option>Female</option><option>Male</option></select></div>
+    <div><label>Nationality *</label><select id="sNat"></select><input id="sNatO" placeholder="Type nationality" hidden style="margin-top:6px"></div>
+    <div><label>Religion *</label><select id="sRel"></select><input id="sRelO" placeholder="Type religion" hidden style="margin-top:6px"></div>
+    <div><label>Previous school</label><input id="sPrev"></div>
+    <div><label>Health condition</label><input id="sHealth" value="Good"></div><div><label>Blood group</label><input id="sBlood"></div></div>
+   <h3>Class</h3><div class="f"><div><label>Class applied for *</label><select id="cls"></select></div><div><label>Preferred section</label><input id="sec" placeholder="e.g. A"></div>
+    <div><label>Term</label><select id="term"><option>Term 1</option><option>Term 2</option><option>Term 3</option></select></div></div>
+   <h3>Parent / guardian</h3><div class="f">
+    <div><label>Full name *</label><input id="gName"></div><div><label>Relationship</label><select id="gRel"><option>Father</option><option>Mother</option><option>Guardian</option></select></div>
+    <div><label>Phone *</label><input id="gPhone" inputmode="tel"></div><div><label>WhatsApp</label><input id="gWa" inputmode="tel"></div>
+    <div><label>Email</label><input id="gEmail" type="email"></div><div><label>Occupation</label><input id="gOcc"></div>
+    <div><label>Address</label><input id="gAddr"></div><div><label>Additional contact</label><input id="gAdd"></div></div>
+   <h3>Documents <span style="color:#6b7691;font-weight:400">(PDF or image, up to 2 MB each)</span></h3><div class="f" id="docs"></div>
+   <h3>Application fee: <span id="feeTxt"></span></h3><div class="f">
+    <div><label>Payment method</label><select id="pm"><option>Mobile Money</option><option>Bank transfer</option><option>Cash at school</option></select></div>
+    <div><label>Transaction ID / reference</label><input id="pref"></div></div>
+   <p class="note">The school confirms your payment before the fee shows as Paid.</p>
+   <div style="margin-top:18px"><button class="go" id="submit">Submit application</button></div><div id="aMsg"></div></div></div>
+ <div id="vTrack" hidden>
+  <div class="box no-print"><h2>Track my application</h2><div class="f"><div><label>Application number</label><input id="tNo" placeholder="APP-2026-00010"></div>
+   <div><label>Guardian phone used on the form</label><input id="tPh" inputmode="tel"></div></div>
+   <div style="margin-top:14px"><button class="go" id="trackGo">View application</button></div><div id="tMsg"></div></div>
+  <div id="detail"></div></div>
+</div>
+<script src="js/adm-detail.js?v=20261006a"></script>
+<script>
+'use strict';
+const $ = id => document.getElementById(id), API = 'api/index.php';
+const NATS = ['Ghanaian','Nigerian','Kenyan','Togolese','Ivorian','Burkinabe','Beninese','Liberian','Sierra Leonean','Cameroonian','South African','Ugandan','Tanzanian','British','American','Canadian','Indian','Chinese','Lebanese'];
+const RELS = ['Christianity','Islam','Traditional','Hinduism','Buddhism','No religion'];
+function fillChoice(sel, other, list) {
+  $(sel).innerHTML = '<option value="">Choose…</option>' + list.map(x => `<option>${x}</option>`).join('') + '<option value="__other">Other (type it)</option>';
+  $(sel).onchange = () => { $(other).hidden = $(sel).value !== '__other'; if (!$(other).hidden) $(other).focus(); };
+}
+const choice = (sel, other) => $(sel).value === '__other' ? $(other).value.trim() : $(sel).value;
+fillChoice('sNat', 'sNatO', NATS); fillChoice('sRel', 'sRelO', RELS);
+let INFO = {docs: [], classes: []}, PHOTO = '', DOCS = {};
+async function call(action, body, q) {
+  const url = `${API}?action=${action}${q ? '&' + new URLSearchParams(q) : ''}`;
+  const r = await fetch(url, body ? {method: 'POST', headers: {'Content-Type': 'application/json', 'X-Requested-With': 'EraMaster'}, body: JSON.stringify(body)} : {headers: {'X-Requested-With': 'EraMaster'}});
+  try { return await r.json(); } catch (e) { return {ok: false, error: 'The server sent an unexpected reply.'}; }
+}
+const show = (t) => { $('vApply').hidden = t !== 'a'; $('vTrack').hidden = t !== 't'; $('tApply').classList.toggle('on', t === 'a'); $('tTrack').classList.toggle('on', t === 't'); };
+$('tApply').onclick = () => show('a'); $('tTrack').onclick = () => show('t');
+const read = f => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = no; r.readAsDataURL(f); });
+function shrink(file, max) { return new Promise((ok, no) => { const im = new Image(); im.onload = () => { const k = Math.min(1, max / Math.max(im.width, im.height)), c = document.createElement('canvas'); c.width = im.width * k; c.height = im.height * k; c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); ok(c.toDataURL('image/jpeg', .8)); }; im.onerror = no; im.src = URL.createObjectURL(file); }); }
+(async () => {
+  const [i, sp] = await Promise.all([call('apply_info'), call('school_profile').catch(() => ({}))]);
+  if (i.ok) { INFO = i; $('cls').innerHTML = i.classes.map(c => `<option>${ADM.esc(c)}</option>`).join(''); $('yr').textContent = i.year; $('feeTxt').textContent = `KSh ${Number(i.fee).toFixed(2)}`; }
+  const p = (sp && (sp.profile || sp)) || {}; if (p.name) { $('sn').textContent = p.name; document.title = 'Apply — ' + p.name; } if (p.logo) { $('lg').src = p.logo; $('lg').hidden = false; const ic = document.querySelector('link[rel="icon"]'); if (ic) ic.href = p.logo; }
+  $('docs').innerHTML = INFO.docs.map((d, k) => `<div><label>${ADM.esc(d)}${d === 'Passport Photo' ? ' (also shown on your application)' : ''}</label><input type="file" data-k="${k}" accept="${d === 'Passport Photo' ? 'image/*' : 'application/pdf,image/*'}"></div>`).join('');
+  $('docs').querySelectorAll('input').forEach(inp => inp.onchange = async () => {
+    const label = INFO.docs[inp.dataset.k], f = inp.files[0]; delete DOCS[label]; if (label === 'Passport Photo') PHOTO = '';
+    if (!f) return; if (f.size > 2e6 && !f.type.startsWith('image/')) { inp.value = ''; return alert('That file is over 2 MB.'); }
+    try { const data = f.type.startsWith('image/') ? await shrink(f, 1000) : await read(f); if (data.length > 2.7e6) throw 0;
+      DOCS[label] = {label, filename: f.name, data}; if (label === 'Passport Photo') PHOTO = await shrink(f, 320); } catch (e) { inp.value = ''; alert('Could not use that file — try a smaller one.'); } });
+})();
+$('submit').onclick = async () => {
+  const v = id => $(id).value.trim(), b = $('submit'); $('aMsg').innerHTML = '';
+  b.disabled = true; b.textContent = 'Submitting…';
+  const r = await call('apply_submit', {student: {name: v('sName'), dob: v('sDob'), gender: v('sGender'), nationality: choice('sNat', 'sNatO'), religion: choice('sRel', 'sRelO'), previousSchool: v('sPrev'), health: v('sHealth'), bloodGroup: v('sBlood')},
+    guardian: {name: v('gName'), relationship: v('gRel'), phone: v('gPhone'), whatsapp: v('gWa'), email: v('gEmail'), occupation: v('gOcc'), address: v('gAddr'), additional: v('gAdd')},
+    classApplied: v('cls'), section: v('sec'), term: v('term'), payMethod: v('pm'), payRef: v('pref'), photo: PHOTO, docs: Object.values(DOCS)});
+  b.disabled = false; b.textContent = 'Submit application';
+  if (!r.ok) { $('aMsg').innerHTML = `<div class="msg err">${ADM.esc(r.error || 'Could not submit.')}</div>`; return; }
+  $('tNo').value = r.appNo; $('tPh').value = v('gPhone'); show('t'); await track();
+  $('tMsg').innerHTML = `<div class="msg okm">Application submitted. Your application number is <b>${ADM.esc(r.appNo)}</b> — keep it, with your phone number, to track progress.</div>`;
+};
+async function track() {
+  $('tMsg').innerHTML = ''; const no = $('tNo').value.trim(), ph = $('tPh').value.trim();
+  const r = await call('apply_track', {appNo: no, phone: ph});
+  if (!r.ok) { $('detail').innerHTML = ''; $('tMsg').innerHTML = `<div class="msg err">${ADM.esc(r.error || 'Not found.')}</div>`; return; }
+  ADM.render($('detail'), r.app, {staff: false, docUrl: d => `${API}?action=apply_doc&appNo=${encodeURIComponent(no)}&phone=${encodeURIComponent(ph)}&doc=${encodeURIComponent(d)}`});
+}
+$('trackGo').onclick = track;
+</script></body></html>

@@ -1,0 +1,20 @@
+/* Settings → Business hours & calendar targets (js/views/business-hours.js). Reuses .theme-card / .theme-head. */
+.bh-card label{display:block;font-size:13px;font-weight:700;color:var(--g-900);margin:0 0 6px}
+.bh-hint{font-weight:500;color:var(--muted);font-size:12px}
+.bh-grid{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,1fr));gap:14px;margin:16px 0 16px}
+.bh-grid .bh-wide{grid-column:span 1}
+@media (max-width:1000px){.bh-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bh-grid .bh-wide{grid-column:span 2}}
+@media (max-width:520px){.bh-grid{grid-template-columns:1fr}.bh-grid .bh-wide{grid-column:span 1}}
+.bh-days{display:flex;flex-wrap:wrap;gap:8px}
+.bh-day{padding:8px 18px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-size:13.5px;font-weight:700;cursor:pointer;transition:background .15s,border-color .15s}
+.bh-day:hover:not(:disabled){border-color:var(--g-700)}
+.bh-day.on{background:var(--g-700);border-color:var(--g-700);color:#fff}
+.bh-day:disabled{opacity:.6;cursor:default}
+.bh-day:focus-visible{outline:2px solid var(--g-700);outline-offset:2px}
+.bh-ev{margin:2px 0 0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.bh-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:14px}
+.bh-sum{font-size:12.5px;color:var(--muted)}
+/* approvals inbox: working-hours turnaround chip */
+.sla-chip{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:700;background:var(--g-100);color:var(--g-900);white-space:nowrap}
+.sla-chip.warn{background:var(--amber-100);color:var(--amber)}
+.sla-chip.breach{background:#fde8ea;color:var(--rose)}

@@ -1,0 +1,19 @@
+# PHP source privacy: a browser may only open the two entry points below.
+# config.php, data.php, rbac.php, handlers/, import/ … are include-only.
+<IfModule mod_authz_core.c>
+  Require all denied
+
+  <FilesMatch "^(index|social)\.php$">
+    Require all granted
+  </FilesMatch>
+
+  # Maintenance tools: only from the computer running the server.
+  # (Also refused when the request came through a tunnel such as ngrok, which always arrives from 127.0.0.1.)
+  <FilesMatch "^(recover|mailtest)\.php$">
+    <RequireAll>
+      Require local
+      Require expr "-z %{HTTP:X-Forwarded-For}"
+    </RequireAll>
+  </FilesMatch>
+</IfModule>
+Options -Indexes

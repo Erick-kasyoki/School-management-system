@@ -1,0 +1,37 @@
+DirectoryIndex home.html index.html
+Options -Indexes -MultiViews
+ServerSignature Off
+
+# ---------- favicon ----------
+# Browsers ask for /favicon.ico on their own - answer with the school logo.
+# (The forced http -> https redirect was removed so localhost works without a certificate.
+#  Re-add it only once real HTTPS is set up - see SECURITY-SETUP.md section 5.)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^favicon\.ico$ favicon.php [L]
+</IfModule>
+
+# ---------- security headers ----------
+<IfModule mod_headers.c>
+  # HSTS only on HTTPS responses. 1 day while you test; raise to 31536000 (1 year) once HTTPS is stable.
+  Header always set Strict-Transport-Security "max-age=86400" "expr=%{HTTPS} == 'on'"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=()"
+</IfModule>
+
+# ---------- private files: never downloadable ----------
+# Project notes, database dumps, backups, archives, logs, config/ini/env files, scripts.
+<FilesMatch "(\.(md|sql|sh|bat|cmd|ini|env|log|bak|old|orig|swp|tar|gz|tgz|zip|7z|rar|dist|phps|inc)|~)$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^(README|CHANGES-.*|SECURITY-SETUP|composer\.(json|lock)|package(-lock)?\.json)">
+  Require all denied
+</FilesMatch>
+# Hidden files (.git, .env, .gitkeep, …). .htaccess itself is already protected by Apache.
+<FilesMatch "^\.(git|env|svn|DS_Store|gitkeep|gitignore)">
+  Require all denied
+</FilesMatch>
+# PHP source stays private: only favicon.php (here) and api/index.php + api/social.php (see api/.htaccess)
+# can be opened from a browser; everything else under api/ is blocked.

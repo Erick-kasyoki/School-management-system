@@ -1,0 +1,86 @@
+/* css/slideshow.css — full-page background photo slideshow (portal.html) + admin manager (Settings screen).
+   Every rule is namespaced (.ssbg-* / .ss-* / .ssm-*) so nothing existing is restyled. */
+
+/* ================= full-page background slideshow ================= */
+.ssbg{--ss-fade:1.2s;--ss-zoom:7s;position:fixed;inset:0;z-index:0;overflow:hidden;background:#0a1f5c;pointer-events:none}
+.ssbg-track{position:absolute;inset:0}
+.ss-slide{position:absolute;inset:0;margin:0;opacity:0;visibility:hidden;z-index:0;
+  transition:opacity var(--ss-fade) ease,visibility 0s linear var(--ss-fade)}
+/* The outgoing photo stays fully visible underneath while the new one fades in on top,
+   so the page background never shows through mid-transition. */
+.ss-slide.is-prev{opacity:1;visibility:visible;z-index:1;transition:none}
+.ss-slide.is-active{opacity:1;visibility:visible;z-index:2;transition:opacity var(--ss-fade) ease,visibility 0s}
+/* Parallax layer: nudged a few px by the pointer (desktop only). */
+.ss-media{position:absolute;inset:-3%;transform:translate3d(var(--px,0px),var(--py,0px),0);transition:transform .6s ease-out}
+/* Zoom layer: a slow, subtle ease from 108% to 100% while a photo is showing. */
+.ss-media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.08);
+  transition:transform 0s linear var(--ss-fade);-webkit-user-drag:none}
+.ss-slide.is-active .ss-media img{transform:scale(1);transition:transform var(--ss-zoom) ease-out 0s}
+/* Blue school-portal tint + darkening so the white headings and cards stay easy to read. */
+.ssbg-shade{position:absolute;inset:0;z-index:5;
+  background:linear-gradient(180deg,rgba(6,18,58,.58) 0%,rgba(8,26,84,.40) 42%,rgba(6,18,58,.66) 100%),rgba(24,73,201,.16)}
+
+/* Keep the page content above the background (only when the slideshow is running). */
+body.has-ssbg .wrap{position:relative;z-index:1}
+
+/* Controls + caption live in the page header area (top-right on desktop, inline on phones),
+   so they scroll with the page and never sit on top of the sign-in cards. */
+.ssbg-ui{position:absolute;top:34px;right:24px;z-index:3;display:flex;flex-direction:column;align-items:flex-end;gap:12px;max-width:min(340px,45%)}
+.ssbg-dock{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:99px;background:rgba(8,22,70,.5);border:1px solid rgba(255,255,255,.28);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 10px 28px -10px rgba(0,0,0,.5)}
+.ss-arrow{width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:background .2s ease,transform .2s ease}
+.ss-arrow svg{width:18px;height:18px}
+.ss-arrow:hover{background:rgba(255,255,255,.3);transform:scale(1.07)}
+.ss-arrow:focus-visible,.ss-dot:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ss-dots{display:flex;align-items:center}
+.ss-dot{width:22px;height:30px;border:0;background:transparent;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ss-dot::before{content:'';width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.55);transition:width .3s ease,background .3s ease}
+.ss-dot:hover::before{background:rgba(255,255,255,.9)}
+.ss-dot[aria-current="true"]::before{width:24px;background:#fff}
+
+/* Caption for the current photo (title + optional caption set by the admin). */
+.ssbg-cap{color:#fff;text-align:right;pointer-events:none;animation:ssCapIn .7s ease both}
+.ssbg-cap h3{margin:0 0 2px;font-size:15px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,.55)}
+.ssbg-cap p{margin:0;font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.92);text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.ssbg-cap:empty{display:none}
+@keyframes ssCapIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (max-width:720px){
+  .ssbg-ui{position:static;align-items:flex-start;max-width:none;margin:0 0 4px}
+  .ssbg-cap{display:none}   /* keep phones uncluttered: arrows + dots only */
+}
+
+/* Reduced motion: a plain quick cross-fade, no zoom / parallax / caption movement. */
+@media (prefers-reduced-motion:reduce){
+  .ss-slide{transition:opacity .3s linear,visibility 0s linear .3s}
+  .ss-slide.is-active{transition:opacity .3s linear,visibility 0s}
+  .ss-media{transform:none!important;transition:none}
+  .ss-media img,.ss-slide.is-active .ss-media img{transform:none;transition:none}
+  .ssbg-cap{animation:none}
+}
+
+/* ================= admin manager (Settings → Homepage slideshow) ================= */
+.ssm{margin-top:26px;border:1px solid var(--line);border-radius:var(--radius,12px);background:var(--card);padding:18px}
+.ssm h3{margin:0 0 4px;font-size:15.5px;color:var(--g-900)}
+.ssm-sub{margin:0 0 14px;font-size:13px;color:var(--muted);line-height:1.5}
+.ssm-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px}
+.ssm-bar .grow{flex:1}
+.ssm-bar select{width:auto;padding:7px 10px}
+.ssm-list{display:flex;flex-direction:column;gap:10px}
+.ssm-item{display:grid;grid-template-columns:26px 112px 1fr auto;gap:12px;align-items:center;padding:10px;
+  border:1px solid var(--line);border-radius:12px;background:var(--card);transition:box-shadow .15s ease,opacity .15s ease}
+.ssm-item.dragging{opacity:.45}
+.ssm-item.drop-before{box-shadow:0 -3px 0 0 var(--accent,var(--g-700))}
+.ssm-item.drop-after{box-shadow:0 3px 0 0 var(--accent,var(--g-700))}
+.ssm-grip{cursor:grab;color:var(--muted);text-align:center;font-size:18px;line-height:1;user-select:none}
+.ssm-thumb{width:112px;aspect-ratio:16/10;border-radius:8px;object-fit:cover;background:var(--g-50,#f0f7f3);display:block}
+.ssm-fields{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ssm-fields input{padding:7px 9px;font-size:13px}
+.ssm-acts{display:flex;gap:4px;align-items:center}
+.ssm-acts .icon-btn{margin:0;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;background:var(--card);color:var(--ink);cursor:pointer}
+.ssm-acts .icon-btn:disabled{opacity:.35;cursor:default}
+.ssm-new{display:inline-block;font-size:10.5px;font-weight:700;color:var(--g-700);background:var(--g-100);padding:1px 8px;border-radius:99px;margin-left:6px}
+.ssm-empty{padding:26px 10px;text-align:center;color:var(--muted);font-size:13.5px;border:1px dashed var(--line);border-radius:12px}
+@media (max-width:640px){
+  .ssm-item{grid-template-columns:22px 76px 1fr;grid-template-areas:"g t f" "a a a"}
+  .ssm-grip{grid-area:g}.ssm-thumb{grid-area:t;width:76px}.ssm-fields{grid-area:f}.ssm-acts{grid-area:a;justify-content:flex-end}
+}
