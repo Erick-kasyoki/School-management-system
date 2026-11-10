@@ -32,7 +32,7 @@ a{color:inherit}
 .nav .brand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav a.l{text-decoration:none;font-size:14.5px;color:#d3e8da;padding:6px 2px;border-bottom:2px solid transparent}
 .nav a.l:hover{color:#fff;border-color:var(--gold)}
-.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:15px;padding:12px 22px;border-radius:999px;border:2px solid transparent;cursor:pointer;transition:transform .15s,background .15s}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:15px;padding:12px 22px;border-radius:999px;border:2px solid transparent;cursor:pointer;transition:transform .15s,background .15s ease}
 .btn:hover{transform:translateY(-2px)}
 .btn-gold{background:var(--gold);color:#0b2815}.btn-gold:hover{background:#a6e6ba}
 .btn-line{border-color:rgba(255,255,255,.7);color:#fff}.btn-line:hover{background:rgba(255,255,255,.12)}
@@ -53,8 +53,8 @@ a{color:inherit}
 @keyframes glow{from{transform:translate3d(-5%,-3%,0) rotate(0deg)}to{transform:translate3d(6%,4%,0) rotate(8deg)}}
 .hero{min-height:min(78vh,720px);display:flex;align-items:center}
 .hero .wrap{width:100%;padding-top:70px;padding-bottom:84px;text-align:center}
-.hero h1{font-family:var(--serif);font-size:clamp(34px,6.4vw,72px);line-height:1.08;margin:0 0 12px;letter-spacing:.01em;text-shadow:0 4px 26px rgba(5,20,10,.65);animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
-@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,6.4vw,72px);line-height:1.08;margin:0 0 12px;letter-spacing:.01em;text-shadow:0 4px 26px rgba(5,20,10,.65);animation:rise .9s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .hero .motto{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.4vw,22px);color:#c9efd6;margin:0 0 28px}
 .hero .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
@@ -67,7 +67,7 @@ h2{font-family:var(--serif);font-size:clamp(26px,3.6vw,38px);line-height:1.15;ma
 /* portal doors */
 #portals{background:var(--white);border-top:6px solid var(--gold)}
 .doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
-.door{display:flex;flex-direction:column;text-decoration:none;background:var(--paper);border-radius:18px;padding:26px 24px 22px;border-left:8px solid var(--c);transition:transform .18s,box-shadow .18s}
+.door{display:flex;flex-direction:column;text-decoration:none;background:var(--paper);border-radius:18px;padding:26px 24px 22px;border-left:8px solid var(--c);transition:transform .18s,box-shadow .18s ease}
 .door:hover{transform:translateY(-5px);box-shadow:0 22px 36px -22px rgba(18,61,33,.55)}
 .door svg{width:34px;height:34px;color:var(--c);margin-bottom:14px}
 .door h3{margin:0 0 4px;font-family:var(--serif);font-size:21px}
@@ -142,7 +142,7 @@ footer a{color:#c9efd6}
         <h3>Students</h3><p>Check results, homework and your timetable.</p><b>Sign in</b>
       </a>
       <a class="door" style="--c:#2a56c6" href="index.html?portal=parent">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="3.5"/><path d="M20 8.5V14M23 11.5h-5"/></svg>
         <h3>Parents</h3><p>Follow your child's progress and read school notices.</p><b>Sign in</b>
       </a>
       <a class="door" style="--c:#7a1c2e" href="index.html?portal=staff">
@@ -150,7 +150,7 @@ footer a{color:#c9efd6}
         <h3>Teachers and staff</h3><p>Record marks, set homework and reach parents.</p><b>Sign in</b>
       </a>
       <a class="door" style="--c:#1b365d" href="index.html?portal=provider">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6l-8-3Z"/><path d="M9.5 12.5l1.5 1.5 3.5-4"/></svg>
         <h3>Administrators</h3><p>Manage the school, settings and broadcasts.</p><b>Sign in</b>
       </a>
     </div>
@@ -204,17 +204,38 @@ footer a{color:#c9efd6}
 /* EDIT THESE: the school office details. Leave a line empty ("") to hide it. */
 const CONTACT = { phone: "", email: "", address: "", hours: "Monday to Friday, 8:00 am to 4:30 pm" };
 
+const fallbackProfile = { name: 'Greenhill Academy', motto: 'Learn · Grow · Succeed', logo: '' };
+
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 /* School name, motto and logo come from Settings, so changing them there updates this page. */
 fetch('api/index.php?action=school_profile', { credentials: 'same-origin' })
   .then(r => r.json()).then(d => {
-    if (!d || !d.ok) return;
-    if (d.name) { document.title = d.name + ' | Welcome'; document.querySelectorAll('.schoolName').forEach(e => e.textContent = d.name); }
-    if (d.motto) document.getElementById('motto').textContent = d.motto;
-    if (d.logo) { const l = document.getElementById('logo'); l.src = d.logo; l.hidden = false;
-      const i = document.querySelector('link[rel="icon"]'); if (i) i.href = d.logo; }
-  }).catch(() => {});
+    const profile = (d && d.ok) ? d : fallbackProfile;
+    const name = profile.name || fallbackProfile.name;
+    const motto = profile.motto || fallbackProfile.motto;
+    document.title = name + ' | Welcome';
+    document.querySelectorAll('.schoolName').forEach(e => e.textContent = name);
+    document.getElementById('motto').textContent = motto;
+
+    const logoEl = document.getElementById('logo');
+    if (profile.logo) {
+      logoEl.src = profile.logo;
+      logoEl.hidden = false;
+      const icon = document.querySelector('link[rel="icon"]');
+      if (icon) icon.href = profile.logo;
+    } else {
+      logoEl.src = 'favicon.php';
+      logoEl.hidden = false;
+    }
+  }).catch(() => {
+    document.title = fallbackProfile.name + ' | Welcome';
+    document.querySelectorAll('.schoolName').forEach(e => e.textContent = fallbackProfile.name);
+    document.getElementById('motto').textContent = fallbackProfile.motto;
+    const logoEl = document.getElementById('logo');
+    logoEl.src = 'favicon.php';
+    logoEl.hidden = false;
+  });
 
 /* Contact rows */
 (function(){
